@@ -31,6 +31,8 @@ PATH="$PATH:/opt/apache-maven-3.9.3/bin"
 source ~/.bashrc
 ```
 
+- Setup _.env_ credentials as described in _.env.example_ in _src/main/resources/_ folder.
+
 - Run the app via CLI:
 ```shell
 mvn spring-boot:run
