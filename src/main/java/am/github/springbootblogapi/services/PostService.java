@@ -1,12 +1,11 @@
 package am.github.springbootblogapi.services;
 
 import am.github.springbootblogapi.payloads.PostDTO;
-
-import java.util.List;
+import am.github.springbootblogapi.payloads.PostResponse;
 
 public interface PostService {
 
-    List<PostDTO> getAll(int page, int per_page);
+    PostResponse getAll(int page, int per_page);
 
     PostDTO create(PostDTO postDto);
 

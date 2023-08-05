@@ -1,12 +1,11 @@
 package am.github.springbootblogapi.controllers;
 
 import am.github.springbootblogapi.payloads.PostDTO;
+import am.github.springbootblogapi.payloads.PostResponse;
 import am.github.springbootblogapi.services.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -18,7 +17,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getAll(
+    public PostResponse getAll(
             @RequestParam(value = "page", defaultValue = "1", required = false) String page,
             @RequestParam(value = "per_page", defaultValue = "2", required = false) String per_page
     ) {
