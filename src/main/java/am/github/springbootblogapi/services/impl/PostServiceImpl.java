@@ -9,6 +9,7 @@ import am.github.springbootblogapi.services.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,8 +42,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAll(int page, int per_page) {
-        Pageable pageable = PageRequest.of(page - 1, per_page); // pages starts from 0
+    public PostResponse getAll(int page, int per_page, String sort_by) {
+        Pageable pageable = PageRequest.of(
+                page - 1, // pages starts from 0
+                per_page,
+                Sort.by(sort_by)
+        );
         Page<Post> pageablePosts = postRepository.findAll(pageable);
         List<Post> posts = pageablePosts.getContent();
 

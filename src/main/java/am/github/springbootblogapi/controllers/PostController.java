@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
@@ -19,11 +21,13 @@ public class PostController {
     @GetMapping
     public PostResponse getAll(
             @RequestParam(value = "page", defaultValue = "1", required = false) String page,
-            @RequestParam(value = "per_page", defaultValue = "2", required = false) String per_page
+            @RequestParam(value = "per_page", defaultValue = "10", required = false) String per_page,
+            @RequestParam(value = "sort_by", defaultValue = "id", required = false) String sort_by
     ) {
+        // TODO: separate validation part
         int pageNumber;
         int perPageNumber;
-        // TODO: separate validation part
+        String sortBy;
         try {
             pageNumber = Integer.parseInt(page);
             perPageNumber = Integer.parseInt(per_page);
@@ -31,12 +35,20 @@ public class PostController {
                 pageNumber = 1;
                 perPageNumber = 10;
             }
+
+            String[] fields = {"id", "title", "description"};
+            if (Arrays.asList(fields).contains(sort_by)) {
+                sortBy = sort_by;
+            } else {
+                sortBy = "id";
+            }
         } catch (NumberFormatException e) {
             pageNumber = 1;
             perPageNumber = 10;
+            sortBy = "id";
         }
 
-        return postService.getAll(pageNumber, perPageNumber);
+        return postService.getAll(pageNumber, perPageNumber, sortBy);
     }
 
     @PostMapping
