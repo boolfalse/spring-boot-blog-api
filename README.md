@@ -42,11 +42,19 @@ mvn spring-boot:run
 
 #### Resources:
 
+- Postman [Collection](https://documenter.getpostman.com/view/1747137/2s9XxyRDsF)
+
 - Udemy [Course](https://www.udemy.com/course/building-real-time-rest-apis-with-spring-boot/)
 - Course's [source code](https://github.com/RameshMF/springboot-blog-rest-api)
 - Download the course free from [www.downloadly.ir](https://downloadlynet.ir/2022/10/73153/04/building-real-time-rest-apis-with-spring-boot-blog-app/21/)
 
 - Spring Initializr [configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.2&packaging=jar&jvmVersion=17&groupId=am.github&artifactId=spring-boot-blog-api&name=spring-boot-blog-api&description=SpringBoot%20Blog%20REST%20API&packageName=am.github.spring-boot-blog-api&dependencies=web,data-jpa,mysql,lombok,devtools)
+
+
+
+#### TODOs:
+
+- Add Validations to Controller methods.
 
 
 
