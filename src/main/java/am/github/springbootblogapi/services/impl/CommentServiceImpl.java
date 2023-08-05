@@ -7,6 +7,7 @@ import am.github.springbootblogapi.payloads.CommentDTO;
 import am.github.springbootblogapi.repositories.CommentRepository;
 import am.github.springbootblogapi.repositories.PostRepository;
 import am.github.springbootblogapi.services.CommentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,31 +15,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+    private ModelMapper modelMapper;
     private CommentRepository commentRepository;
     private PostRepository postRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentServiceImpl(ModelMapper modelMapper,
+                              CommentRepository commentRepository,
+                              PostRepository postRepository) {
+        this.modelMapper = modelMapper;
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
     }
 
+    // .map(source, destination)
     private Comment DTOToEntity(CommentDTO commentDto) {
-        Comment commentEntity = new Comment();
-        commentEntity.setId(commentDto.getId());
-        commentEntity.setName(commentDto.getName());
-        commentEntity.setEmail(commentDto.getEmail());
-        commentEntity.setBody(commentDto.getBody());
-
-        return commentEntity;
+        return modelMapper.map(commentDto, Comment.class);
     }
     private CommentDTO entityToDTO(Comment commentEntity) {
-        CommentDTO commentDto = new CommentDTO();
-        commentDto.setId(commentEntity.getId());
-        commentDto.setName(commentEntity.getName());
-        commentDto.setEmail(commentEntity.getEmail());
-        commentDto.setBody(commentEntity.getBody());
-
-        return commentDto;
+        return modelMapper.map(commentEntity, CommentDTO.class);
     }
 
     @Override

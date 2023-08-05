@@ -6,6 +6,7 @@ import am.github.springbootblogapi.payloads.PostDTO;
 import am.github.springbootblogapi.payloads.PostResponse;
 import am.github.springbootblogapi.repositories.PostRepository;
 import am.github.springbootblogapi.services.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,28 +19,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
+    private ModelMapper modelMapper;
     private PostRepository postRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(ModelMapper modelMapper,
+                           PostRepository postRepository) {
+        this.modelMapper = modelMapper;
         this.postRepository = postRepository;
     }
 
+    // .map(source, destination)
     private Post DTOToEntity(PostDTO postDto) {
-        Post postEntity = new Post();
-        postEntity.setTitle(postDto.getTitle());
-        postEntity.setDescription(postDto.getDescription());
-        postEntity.setContent(postDto.getContent());
-
-        return postEntity;
+        return modelMapper.map(postDto, Post.class);
     }
     private PostDTO entityToDTO(Post postEntity) {
-        PostDTO postDto = new PostDTO();
-        postDto.setId(postEntity.getId());
-        postDto.setTitle(postEntity.getTitle());
-        postDto.setDescription(postEntity.getDescription());
-        postDto.setContent(postEntity.getContent());
-
-        return postDto;
+        return modelMapper.map(postEntity, PostDTO.class);
     }
 
     @Override
