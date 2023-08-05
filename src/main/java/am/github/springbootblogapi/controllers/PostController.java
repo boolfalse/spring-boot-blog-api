@@ -3,6 +3,7 @@ package am.github.springbootblogapi.controllers;
 import am.github.springbootblogapi.payloads.PostDTO;
 import am.github.springbootblogapi.payloads.PostResponse;
 import am.github.springbootblogapi.services.PostService;
+import am.github.springbootblogapi.utils.AppConstants;
 import am.github.springbootblogapi.validations.PostFilteredParameters;
 import am.github.springbootblogapi.validations.PostValidationFilter;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,10 @@ public class PostController {
 
     @GetMapping
     public PostResponse getAll(
-            @RequestParam(value = "page", defaultValue = "1", required = false) String page,
-            @RequestParam(value = "per_page", defaultValue = "10", required = false) String per_page,
-            @RequestParam(value = "sort_by", defaultValue = "id", required = false) String sort_by,
-            @RequestParam(value = "order_by", defaultValue = "asc", required = false) String order_by
+            @RequestParam(value = "page", defaultValue = AppConstants.APP_DEFAULT_PAGE, required = false) String page,
+            @RequestParam(value = "per_page", defaultValue = AppConstants.APP_DEFAULT_PER_PAGE, required = false) String per_page,
+            @RequestParam(value = "sort_by", defaultValue = AppConstants.APP_DEFAULT_SORT_BY, required = false) String sort_by,
+            @RequestParam(value = "order_by", defaultValue = AppConstants.APP_DEFAULT_ORDER_BY, required = false) String order_by
     ) {
         PostFilteredParameters filtered = PostValidationFilter.getAll(page, per_page, sort_by, order_by);
 
