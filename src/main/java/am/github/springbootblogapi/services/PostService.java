@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PostService {
 
-    List<PostDTO> getAll();
+    List<PostDTO> getAll(int page, int per_page);
 
     PostDTO create(PostDTO postDto);
 

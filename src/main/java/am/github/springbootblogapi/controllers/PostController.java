@@ -18,8 +18,26 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getAll() {
-        return postService.getAll();
+    public List<PostDTO> getAll(
+            @RequestParam(value = "page", defaultValue = "1", required = false) String page,
+            @RequestParam(value = "per_page", defaultValue = "2", required = false) String per_page
+    ) {
+        int pageNumber;
+        int perPageNumber;
+        // TODO: separate validation part
+        try {
+            pageNumber = Integer.parseInt(page);
+            perPageNumber = Integer.parseInt(per_page);
+            if (pageNumber < 1 || pageNumber > 1000 || perPageNumber < 1 || perPageNumber > 100) {
+                pageNumber = 1;
+                perPageNumber = 10;
+            }
+        } catch (NumberFormatException e) {
+            pageNumber = 1;
+            perPageNumber = 10;
+        }
+
+        return postService.getAll(pageNumber, perPageNumber);
     }
 
     @PostMapping
