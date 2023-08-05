@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,11 +43,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAll(int page, int per_page, String sort_by) {
+    public PostResponse getAll(int page, int per_page, String sort_by, String order_by) {
+        Sort sortOrder = Objects.equals(order_by, "asc")
+                ? Sort.by(sort_by).ascending()
+                : Sort.by(sort_by).descending();
         Pageable pageable = PageRequest.of(
                 page - 1, // pages starts from 0
                 per_page,
-                Sort.by(sort_by)
+                sortOrder
         );
         Page<Post> pageablePosts = postRepository.findAll(pageable);
         List<Post> posts = pageablePosts.getContent();

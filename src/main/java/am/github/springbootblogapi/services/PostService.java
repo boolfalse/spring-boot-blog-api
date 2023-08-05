@@ -5,7 +5,7 @@ import am.github.springbootblogapi.payloads.PostResponse;
 
 public interface PostService {
 
-    PostResponse getAll(int page, int per_page, String sort_by);
+    PostResponse getAll(int page, int per_page, String sort_by, String order_by);
 
     PostDTO create(PostDTO postDto);
 
