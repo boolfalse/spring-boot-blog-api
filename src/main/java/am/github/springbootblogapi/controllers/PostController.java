@@ -6,6 +6,7 @@ import am.github.springbootblogapi.services.PostService;
 import am.github.springbootblogapi.utils.AppConstants;
 import am.github.springbootblogapi.validations.PostFilteredParameters;
 import am.github.springbootblogapi.validations.PostValidationFilter;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> create(@RequestBody PostDTO postDto) {
+    public ResponseEntity<PostDTO> create(@Valid @RequestBody PostDTO postDto) {
         return new ResponseEntity<PostDTO>(this.postService.create(postDto), HttpStatus.CREATED);
     }
 
@@ -48,7 +49,7 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> update(
-            @RequestBody PostDTO postDto,
+            @Valid @RequestBody PostDTO postDto,
             @PathVariable(name = "id") Long id
     ) {
         return new ResponseEntity<PostDTO>(this.postService.update(postDto, id), HttpStatus.ACCEPTED);
