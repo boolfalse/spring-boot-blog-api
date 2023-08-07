@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,30 +36,13 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/**")
-                        .permitAll()
+                        // allow to use all the GET requests
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        // allow requests with prefix "/api/auth/"
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest()
                         .authenticated()
-                )
-                .httpBasic(Customizer.withDefaults())
-                .build();
+                ).build();
     }
-
-    // InMemory Objects
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        UserDetails client = User.builder()
-//                .username("client")
-//                .password(passwordEncoder().encode("client"))
-//                .roles("CLIENT")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, client);
-//    }
 
 }
