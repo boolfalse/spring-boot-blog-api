@@ -1,5 +1,6 @@
 package am.github.springbootblogapi.controllers;
 
+import am.github.springbootblogapi.payloads.AuthResponse;
 import am.github.springbootblogapi.payloads.LoginDTO;
 import am.github.springbootblogapi.payloads.RegisterDTO;
 import am.github.springbootblogapi.services.AuthService;
@@ -20,14 +21,16 @@ public class AuthController {
     }
 
     @PostMapping(value = {"/login", "/sign-in"}) // multiple URIs accepted
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDto) {
-        String response = authService.login(loginDto);
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginDTO loginDto) {
+        // TODO: validate fields
+        String accessToken = authService.login(loginDto);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new AuthResponse(accessToken));
     }
 
     @PostMapping(value = {"/register", "/sign-up"}) // multiple URIs accepted
     public ResponseEntity<String> login(@RequestBody RegisterDTO registerDto) {
+        // TODO: validate fields
         String response = authService.register(registerDto);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
