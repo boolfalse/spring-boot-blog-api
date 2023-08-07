@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.nio.file.AccessDeniedException;
 
@@ -15,11 +16,19 @@ import java.nio.file.AccessDeniedException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(
-            ResourceNotFoundException exception) {
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
         return new ResponseEntity<>(new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(),
+                Helper.getNowDateFormatted()
+        ), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponse> handleApiException(ApiException exception, WebRequest webRequest) {
+        return new ResponseEntity<>(new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage(), // webRequest.getDescription(false),
                 Helper.getNowDateFormatted()
         ), HttpStatus.BAD_REQUEST);
     }
@@ -56,8 +65,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponse> handleAccessDeniedException(
-            AccessDeniedException exception) {
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException exception) {
         return new ResponseEntity<>(new ErrorResponse(
                 HttpStatus.UNAUTHORIZED.value(),
                 exception.getMessage(),
