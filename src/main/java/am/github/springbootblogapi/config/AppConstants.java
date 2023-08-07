@@ -1,4 +1,4 @@
-package am.github.springbootblogapi.utils;
+package am.github.springbootblogapi.config;
 
 public class AppConstants {
     public static final String APP_DEFAULT_PAGE = "1";

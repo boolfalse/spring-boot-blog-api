@@ -6,10 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
+
+@ControllerAdvice
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception) {
 //        // create a hashmap
 //        Map<String, String> errors = new HashMap<>();
 //        // loop over the possible errors and push them into the hashmap to get the k:v list of errors
@@ -47,11 +48,21 @@ public class GlobalExceptionHandler {
                 .reduce((msg1, msg2) -> msg1 + ", " + msg2)
                 .orElse("Validation failed!");
 
-        return new ErrorResponse(
+        return new ResponseEntity<>(new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 errorMessage,
                 Helper.getNowDateFormatted()
-        );
+        ), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(
+            AccessDeniedException exception) {
+        return new ResponseEntity<>(new ErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                exception.getMessage(),
+                Helper.getNowDateFormatted()
+        ), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

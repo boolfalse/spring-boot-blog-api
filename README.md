@@ -33,10 +33,19 @@ source ~/.bashrc
 
 - Setup _.env_ credentials as described in _.env.example_ in _src/main/resources/_ folder.
 
+- [Temporary] Before running the app, run public static void "main" method of "utils/PasswordGenerator" class (for development) to retrieve "admin" and "client" passwords appropriately, and manually create that users in the database "users" table using that passwords like this:
+
+| id | email | username | email | password |
+|-|:-:|:-:|:-:|-|
+| 1 | admin@gmail.com | admin | Admin | $2a$10$Z1Ep0eZwKNAchsrO8LnE4un5IxUBy.ydeT3RcXmfLy.kCaJu5hbMW    |
+| 2 | client@gmail.com | client | Client | $2a$10$4EAfabQwgECgVMnzVI2OPeOBHwENmAMZ6Vrvxf1BRl7O1TkDygHqy    |
+
 - Run the app via CLI:
 ```shell
 mvn spring-boot:run
 ```
+
+- Check with the Postman Collection.
 
 
 

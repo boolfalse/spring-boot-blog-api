@@ -3,12 +3,13 @@ package am.github.springbootblogapi.controllers;
 import am.github.springbootblogapi.payloads.PostDTO;
 import am.github.springbootblogapi.payloads.PostResponse;
 import am.github.springbootblogapi.services.PostService;
-import am.github.springbootblogapi.utils.AppConstants;
+import am.github.springbootblogapi.config.AppConstants;
 import am.github.springbootblogapi.validations.PostFilteredParameters;
 import am.github.springbootblogapi.validations.PostValidationFilter;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,6 +38,7 @@ public class PostController {
         );
     }
 
+    @PreAuthorize("") // hasRole('ADMIN')
     @PostMapping
     public ResponseEntity<PostDTO> create(@Valid @RequestBody PostDTO postDto) {
         return new ResponseEntity<PostDTO>(this.postService.create(postDto), HttpStatus.CREATED);
@@ -47,6 +49,7 @@ public class PostController {
         return ResponseEntity.ok(postService.single(id));
     }
 
+    @PreAuthorize("") // hasRole('ADMIN')
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> update(
             @Valid @RequestBody PostDTO postDto,
@@ -55,6 +58,7 @@ public class PostController {
         return new ResponseEntity<PostDTO>(this.postService.update(postDto, id), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("") // hasRole('ADMIN')
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
         postService.delete(id);
