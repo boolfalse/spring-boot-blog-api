@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
         this.postRepository = postRepository;
     }
 
-    // .map(source, destination)
+    // .map(source, destination) // TODO: optimize
     private Comment DTOToEntity(CommentDTO commentDto) {
         return modelMapper.map(commentDto, Comment.class);
     }

@@ -24,4 +24,5 @@ public class PostDTO {
 
     // relationships
     private Set<CommentDTO> comments; // post->comments one-to-many append
+    private int categoryId; // post->category
 }

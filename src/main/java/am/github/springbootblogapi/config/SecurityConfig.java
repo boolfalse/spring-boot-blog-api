@@ -52,8 +52,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         // allow requests with prefix "/api/auth/"
                         .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest()
-                        .authenticated()
+                        .anyRequest().authenticated()
                 ).exceptionHandling(exception -> {
                     exception.authenticationEntryPoint(jwtAuthenticationEntryPoint);
                 }).sessionManagement(session -> {

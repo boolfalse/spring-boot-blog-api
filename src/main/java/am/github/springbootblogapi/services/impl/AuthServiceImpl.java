@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setName(registerDto.getName());
 
-        Role role = roleRepository.findByAlias("client").get();
+        Role role = roleRepository.findByAlias("ROLE_CLIENT").get();
         // TODO: check if role exists
         Set<Role> roles = new HashSet<>();
         roles.add(role);

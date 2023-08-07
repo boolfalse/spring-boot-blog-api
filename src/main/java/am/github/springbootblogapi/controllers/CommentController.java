@@ -28,12 +28,16 @@ public class CommentController {
             @PathVariable(name = "postId") Long postId,
             @Valid @RequestBody CommentDTO commentDto
     ) {
-        return new ResponseEntity<CommentDTO>(this.commentService.create(postId, commentDto), HttpStatus.CREATED);
+        CommentDTO createdCommentDto = this.commentService.create(postId, commentDto);
+
+        return new ResponseEntity<CommentDTO>(createdCommentDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/single/{id}")
     public ResponseEntity<CommentDTO> single(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(commentService.single(id));
+        CommentDTO commentDto = commentService.single(id);
+
+        return ResponseEntity.ok(commentDto);
     }
 
     @PutMapping("/edit/{id}")
@@ -41,12 +45,15 @@ public class CommentController {
             @Valid @RequestBody CommentDTO commentDto,
             @PathVariable(name = "id") Long id
     ) {
-        return new ResponseEntity<CommentDTO>(this.commentService.update(commentDto, id), HttpStatus.ACCEPTED);
+        CommentDTO updatedCommentDto = this.commentService.update(commentDto, id);
+
+        return new ResponseEntity<CommentDTO>(updatedCommentDto, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
         commentService.delete(id);
+
         return new ResponseEntity<String>("Comment deleted successfully.", HttpStatus.OK);
     }
 }
