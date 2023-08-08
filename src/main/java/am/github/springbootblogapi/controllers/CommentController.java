@@ -1,5 +1,6 @@
 package am.github.springbootblogapi.controllers;
 
+import am.github.springbootblogapi.payloads.BackResponse;
 import am.github.springbootblogapi.payloads.CommentDTO;
 import am.github.springbootblogapi.services.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -73,9 +74,9 @@ public class CommentController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('CLIENT')")
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<BackResponse> delete(@PathVariable(name = "id") Long id) {
         commentService.delete(id);
 
-        return new ResponseEntity<String>("Comment deleted successfully.", HttpStatus.OK);
+        return new ResponseEntity<>(new BackResponse(true, "Comment deleted successfully."), HttpStatus.OK);
     }
 }

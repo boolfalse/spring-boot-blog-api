@@ -2,6 +2,7 @@ package am.github.springbootblogapi.controllers;
 
 import am.github.springbootblogapi.payloads.AuthResponse;
 import am.github.springbootblogapi.payloads.LoginDTO;
+import am.github.springbootblogapi.payloads.BackResponse;
 import am.github.springbootblogapi.payloads.RegisterDTO;
 import am.github.springbootblogapi.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,10 +38,10 @@ public class AuthController {
     @Operation(summary = "Register", description = "Sign-up user.")
     @ApiResponse(responseCode = "201", description = "HTTP Status CREATED")
     @PostMapping(value = {"/register", "/sign-up"}) // multiple URIs accepted
-    public ResponseEntity<String> login(@RequestBody RegisterDTO registerDto) {
+    public ResponseEntity<BackResponse> login(@RequestBody RegisterDTO registerDto) {
         // TODO: validate fields
         String response = authService.register(registerDto);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new BackResponse(true, response), HttpStatus.CREATED);
     }
 }

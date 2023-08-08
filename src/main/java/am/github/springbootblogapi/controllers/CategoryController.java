@@ -1,5 +1,6 @@
 package am.github.springbootblogapi.controllers;
 
+import am.github.springbootblogapi.payloads.BackResponse;
 import am.github.springbootblogapi.payloads.CategoryDTO;
 import am.github.springbootblogapi.services.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,9 +71,9 @@ public class CategoryController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable(name = "id") int id) {
+    public ResponseEntity<BackResponse> delete(@PathVariable(name = "id") int id) {
         categoryService.delete(id);
 
-        return new ResponseEntity<String>("Category deleted successfully.", HttpStatus.OK);
+        return new ResponseEntity<>(new BackResponse(true, "Category deleted successfully."), HttpStatus.OK);
     }
 }

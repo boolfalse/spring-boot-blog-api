@@ -1,5 +1,6 @@
 package am.github.springbootblogapi.controllers;
 
+import am.github.springbootblogapi.payloads.BackResponse;
 import am.github.springbootblogapi.payloads.PostDTO;
 import am.github.springbootblogapi.payloads.PostResponse;
 import am.github.springbootblogapi.services.PostService;
@@ -86,10 +87,10 @@ public class PostController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('CLIENT')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<BackResponse> delete(@PathVariable(name = "id") Long id) {
         postService.delete(id);
 
-        return new ResponseEntity<String>("Post deleted successfully.", HttpStatus.OK);
+        return new ResponseEntity<>(new BackResponse(true, "Post deleted successfully."), HttpStatus.OK);
     }
 
     @Operation(summary = "Get Category Posts", description = "Get all the posts by a category.")
