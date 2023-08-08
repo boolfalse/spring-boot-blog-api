@@ -83,12 +83,12 @@ public class SpringBootBlogApiApplication implements CommandLineRunner {
 			user.setName("Admin");
 			userRepository.save(user);
 
-			Role createdRole = roleRepository.findByAlias(this.adminEmail)
-					.orElseThrow(() -> new RuntimeException("Role not found!"));
+			Role createdRole = roleRepository.findByAlias("ROLE_ADMIN")
+					.orElseThrow(() -> new RuntimeException("Admin Role not found!"));
 			// Fetch from the database to avoid following error:
 			// detached entity passed to persist entities Role
 			User createdUser = userRepository.findByEmail(this.adminEmail)
-					.orElseThrow(() -> new RuntimeException("User role not found!"));
+					.orElseThrow(() -> new RuntimeException("Admin user not found!"));
 
 			createdUser.getRoles().add(createdRole);
 			userRepository.save(createdUser);
