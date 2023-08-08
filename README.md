@@ -35,6 +35,20 @@ source ~/.bashrc
 
 - As the JWT_SECRET it's recommended to use SHA256 hashed string.
 
+- [Temporary] Before running the app create two "ROLE_ADMIN" and "ROLE_CLIENT" roles by manually adding that roles in the database "roles" table.
+
+| id |       name       | alias  |
+|-|:----------------:|:------:|
+| 1 | ROLE_ADMIN  | ROLE_ADMIN  |
+| 2 | ROLE_CLIENT | ROLE_CLIENT |
+
+- [Temporary] Before running the app create two relations in the database "roles_users" table like this:
+
+| id | user_id | alias |
+|-|:-------:|:-:|
+| 1 |    1    |  1    |
+| 2 |    2    |   2   |
+
 - [Temporary] Before running the app, run public static void "main" method of "utils/PasswordGenerator" class (for development) to retrieve "admin" and "client" passwords appropriately, and manually create that users in the database "users" table using that passwords like this:
 
 | id | email | username | email | password |
@@ -48,6 +62,8 @@ mvn spring-boot:run
 ```
 
 - Check with the Postman Collection.
+
+- Check the API docs with SwaggerUI on "[/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)"
 
 
 

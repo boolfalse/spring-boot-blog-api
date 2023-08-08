@@ -50,7 +50,7 @@ public class PostController {
     @Operation(summary = "Create Post", description = "Create a post and get the created post as a result.")
     @ApiResponse(responseCode = "201", description = "HTTP Status CREATED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @PostMapping
     public ResponseEntity<PostDTO> create(@Valid @RequestBody PostDTO postDto) {
         PostDTO createdPostDto = this.postService.create(postDto);
@@ -70,7 +70,7 @@ public class PostController {
     @Operation(summary = "Update Post", description = "Update post and get the updated post as a result.")
     @ApiResponse(responseCode = "202", description = "HTTP Status ACCEPTED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> update(
             @Valid @RequestBody PostDTO postDto,
@@ -84,7 +84,7 @@ public class PostController {
     @Operation(summary = "Delete Post", description = "Delete post.")
     @ApiResponse(responseCode = "200", description = "HTTP Status OK")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
         postService.delete(id);

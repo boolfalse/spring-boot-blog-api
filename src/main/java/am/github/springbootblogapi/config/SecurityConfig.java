@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         bearerFormat = "JWT",
         scheme = "bearer"
 )
-@EnableMethodSecurity
+@EnableMethodSecurity // e.g. enable @PreAuthorize("hasRole('ADMIN')") usages
 @Configuration
 public class SecurityConfig {
     private UserDetailsService userDetailsService;

@@ -34,7 +34,7 @@ public class CommentController {
     @Operation(summary = "Add Comment", description = "Comment to a post and get the created comment as a result.")
     @ApiResponse(responseCode = "201", description = "HTTP Status CREATED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/add/{postId}")
     public ResponseEntity<CommentDTO> create(
             @PathVariable(name = "postId") Long postId,
@@ -57,7 +57,7 @@ public class CommentController {
     @Operation(summary = "Update Comment", description = "Update a comment and get the updated comment as a result.")
     @ApiResponse(responseCode = "202", description = "HTTP Status ACCEPTED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<CommentDTO> update(
             @Valid @RequestBody CommentDTO commentDto,
@@ -71,7 +71,7 @@ public class CommentController {
     @Operation(summary = "Update Comment", description = "Delete comment.")
     @ApiResponse(responseCode = "200", description = "HTTP Status OK")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('CLIENT')
+    @PreAuthorize("hasRole('CLIENT')")
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
         commentService.delete(id);

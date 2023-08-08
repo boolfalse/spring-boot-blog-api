@@ -34,7 +34,7 @@ public class CategoryController {
     @Operation(summary = "Create Category", description = "Create category and get the created category as a result.")
     @ApiResponse(responseCode = "201", description = "HTTP Status CREATED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('ADMIN')
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDTO> create(@Valid @RequestBody CategoryDTO categoryDto) {
         CategoryDTO createdCategoryDto = this.categoryService.create(categoryDto);
@@ -54,7 +54,7 @@ public class CategoryController {
     @Operation(summary = "Update Category", description = "Update category and get the updated category as a result.")
     @ApiResponse(responseCode = "202", description = "HTTP Status ACCEPTED")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('ADMIN')
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO> update(
             @Valid @RequestBody CategoryDTO categoryDto,
@@ -68,7 +68,7 @@ public class CategoryController {
     @Operation(summary = "Delete Category", description = "Delete category.")
     @ApiResponse(responseCode = "200", description = "HTTP Status OK")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("") // hasRole('ADMIN')
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") int id) {
         categoryService.delete(id);
