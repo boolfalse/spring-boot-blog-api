@@ -65,6 +65,7 @@ _Used Resources_
 - [JJWT :: Impl » 0.11.5](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl/0.11.5)
 - [JJWT :: API » 0.11.5](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api/0.11.5)
 - [JJWT :: Extensions :: Jackson » 0.11.5](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson/0.11.5)
+- [SpringDoc OpenAPI Starter WebMVC UI » 2.2.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui/2.2.0)
 
 _Useful Links_
 - Another popular model-mapping library [MapStruct](https://mapstruct.org/)
