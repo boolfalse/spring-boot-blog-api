@@ -9,4 +9,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 
     Optional<Role> findByAlias(String alias);
 
+    Boolean existsByAlias(String alias);
+
 }

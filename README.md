@@ -11,9 +11,9 @@
 
 
 
-#### Setup:
+#### Installation:
 
-- Setup [`Maven`](https://maven.apache.org/download.cgi).
+- Make sure to have [`Maven`](https://maven.apache.org/download.cgi) set up.
 ```shell
 # maven: download, extract and move to the executable folder
 wget https://dlcdn.apache.org/maven/maven-3/3.9.3/binaries/apache-maven-3.9.3-bin.tar.gz
@@ -35,35 +35,16 @@ source ~/.bashrc
 
 - As the JWT_SECRET it's recommended to use SHA256 hashed string.
 
-- [Temporary] Before running the app create two "ROLE_ADMIN" and "ROLE_CLIENT" roles by manually adding that roles in the database "roles" table.
-
-| id |       name       | alias  |
-|-|:----------------:|:------:|
-| 1 | ROLE_ADMIN  | ROLE_ADMIN  |
-| 2 | ROLE_CLIENT | ROLE_CLIENT |
-
-- [Temporary] Before running the app create two relations in the database "roles_users" table like this:
-
-| id | user_id | alias |
-|-|:-------:|:-:|
-| 1 |    1    |  1    |
-| 2 |    2    |   2   |
-
-- [Temporary] Before running the app, run public static void "main" method of "utils/PasswordGenerator" class (for development) to retrieve "admin" and "client" passwords appropriately, and manually create that users in the database "users" table using that passwords like this:
-
-| id | email | username | email | password |
-|-|:-:|:-:|:-:|-|
-| 1 | admin@gmail.com | admin | Admin | $2a$10$Z1Ep0eZwKNAchsrO8LnE4un5IxUBy.ydeT3RcXmfLy.kCaJu5hbMW    |
-| 2 | client@gmail.com | client | Client | $2a$10$4EAfabQwgECgVMnzVI2OPeOBHwENmAMZ6Vrvxf1BRl7O1TkDygHqy    |
-
 - Run the app via CLI:
 ```shell
 mvn spring-boot:run
 ```
 
-- Check with the Postman Collection.
+- Use "ADMIN_***" credentials from .env to act as an admin.
 
-- Check the API docs with SwaggerUI on "[/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)"
+- Try the Postman Collection using http://localhost:8080 as a dev host URI.
+
+- Or Check the API docs with SwaggerUI on "[/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)"
 
 
 
