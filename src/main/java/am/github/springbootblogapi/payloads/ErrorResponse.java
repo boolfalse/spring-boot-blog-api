@@ -1,5 +1,8 @@
 package am.github.springbootblogapi.payloads;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Error Response fields")
 public class ErrorResponse {
     private int code;
     private String message;
