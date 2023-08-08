@@ -1,5 +1,5 @@
 
-## [SpringBoot Blog API](https://github.com/boolfalse/spring-boot-blog-api)
+## SpringBoot Blog API
 
 
 

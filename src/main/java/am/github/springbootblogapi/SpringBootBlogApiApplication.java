@@ -1,5 +1,6 @@
 package am.github.springbootblogapi;
 
+import am.github.springbootblogapi.config.AppConstants;
 import am.github.springbootblogapi.entities.Role;
 import am.github.springbootblogapi.entities.User;
 import am.github.springbootblogapi.repositories.RoleRepository;
@@ -23,13 +24,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 		description = "Spring Boot Blog API documentation",
 		version = "v1.0.0",
 		contact = @Contact(
-				name = "BoolFalse",
-				email = "email@boolfalse.com",
-				url = "https://boolfalse.com"
+				name = AppConstants.AUTHOR_NICKNAME,
+				email = AppConstants.AUTHOR_EMAIL,
+				url = AppConstants.AUTHOR_URL
 		)
 ), externalDocs = @ExternalDocumentation(
 		description = "Postman Collection",
-		url = "https://documenter.getpostman.com/view/1747137/2s9XxyRDsF"
+		url = AppConstants.POSTMAN_COLLECTION_PUBLISHED
 ))
 @EnableWebMvc
 @SpringBootApplication
