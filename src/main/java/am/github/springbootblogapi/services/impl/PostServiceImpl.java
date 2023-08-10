@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
-    private ModelMapper modelMapper;
-    private PostRepository postRepository;
-    private CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
+    private final PostRepository postRepository;
+    private final CategoryRepository categoryRepository;
 
     public PostServiceImpl(ModelMapper modelMapper,
                            PostRepository postRepository,
@@ -108,7 +108,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> getCategoryPosts(int categoryId) {
-        Category category = categoryRepository.findById(categoryId)
+        // Category existingCategory
+        categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", Long.toString(categoryId)));
 
         List<Post> posts = postRepository.findPostsByCategoryId(categoryId);

@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
-    private CommentService commentService;
+    private final CommentService commentService;
 
     public CommentController(CommentService commentService) {
         this.commentService = commentService;

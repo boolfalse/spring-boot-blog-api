@@ -11,8 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,16 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity // e.g. enable @PreAuthorize("hasRole('ADMIN')") usages
 @Configuration
 public class SecurityConfig {
-    private UserDetailsService userDetailsService;
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(
-            UserDetailsService userDetailsService,
             JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
             JwtAuthenticationFilter jwtAuthenticationFilter
     ) {
-        this.userDetailsService = userDetailsService;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
@@ -56,7 +53,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable) // csrf -> csrf.disable()
                 .authorizeHttpRequests(authorize -> authorize
                         // allow to use all the GET requests
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()

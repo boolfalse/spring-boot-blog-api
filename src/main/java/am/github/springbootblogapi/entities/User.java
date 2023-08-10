@@ -37,5 +37,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles; // (instead of List we use Set for not having duplicates)
+    private Set<Role> roles; // instead of List we use Set for not having duplicates
 }

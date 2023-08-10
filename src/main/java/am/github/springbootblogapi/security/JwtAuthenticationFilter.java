@@ -18,8 +18,8 @@ import java.io.IOException;
 // filter base class that aims to guarantee a single execution per request dispatch
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private JwtTokenProvider jwtTokenProvider;
-    private UserDetailsService userDetailsService;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(
             JwtTokenProvider jwtTokenProvider,
@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = "";
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            token = bearerToken.substring(7, bearerToken.length());
+            token = bearerToken.substring(7);
         }
 
         return token;

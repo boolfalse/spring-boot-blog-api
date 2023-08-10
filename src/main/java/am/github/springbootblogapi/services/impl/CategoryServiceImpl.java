@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private ModelMapper modelMapper;
-    private CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(ModelMapper modelMapper,
                                CategoryRepository categoryRepository) {

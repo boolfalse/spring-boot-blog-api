@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.nio.file.AccessDeniedException;
 
@@ -25,7 +24,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ErrorResponse> handleApiException(ApiException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleApiException(
+            ApiException exception
+            // WebRequest webRequest
+    ) {
         return new ResponseEntity<>(new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(), // webRequest.getDescription(false),

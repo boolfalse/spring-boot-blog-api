@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private ModelMapper modelMapper;
-    private CommentRepository commentRepository;
-    private PostRepository postRepository;
+    private final ModelMapper modelMapper;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
     public CommentServiceImpl(ModelMapper modelMapper,
                               CommentRepository commentRepository,
@@ -29,7 +29,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDTO> getAll(Long postId) {
-        Post post = postRepository.findById(postId)
+        // Post existingPost
+        postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(postId)));
         List<Comment> comments = commentRepository.findCommentsByPostId(postId);
 
