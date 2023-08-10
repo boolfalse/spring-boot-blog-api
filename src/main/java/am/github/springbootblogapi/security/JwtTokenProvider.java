@@ -1,4 +1,4 @@
-package am.github.springbootblogapi.services;
+package am.github.springbootblogapi.security;
 
 import am.github.springbootblogapi.config.AppConstants;
 import am.github.springbootblogapi.exceptions.ApiException;

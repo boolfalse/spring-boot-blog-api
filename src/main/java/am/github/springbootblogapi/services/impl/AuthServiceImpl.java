@@ -8,7 +8,7 @@ import am.github.springbootblogapi.payloads.RegisterDTO;
 import am.github.springbootblogapi.repositories.RoleRepository;
 import am.github.springbootblogapi.repositories.UserRepository;
 import am.github.springbootblogapi.services.AuthService;
-import am.github.springbootblogapi.services.JwtTokenProvider;
+import am.github.springbootblogapi.security.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

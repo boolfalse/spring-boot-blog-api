@@ -1,7 +1,7 @@
 package am.github.springbootblogapi.config;
 
-import am.github.springbootblogapi.services.JwtAuthenticationEntryPoint;
-import am.github.springbootblogapi.services.JwtAuthenticationFilter;
+import am.github.springbootblogapi.security.JwtAuthenticationEntryPoint;
+import am.github.springbootblogapi.security.JwtAuthenticationFilter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
