@@ -8,6 +8,7 @@ import am.github.springbootblogapi.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,7 @@ public class AuthController {
     @Operation(summary = "Login", description = "Sign-in user and get credentials.")
     @ApiResponse(responseCode = "200", description = "HTTP Status OK")
     @PostMapping(value = {"/login", "/sign-in"}) // multiple URIs accepted
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginDTO loginDto) {
-        // TODO: validate fields
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginDTO loginDto) {
         String accessToken = authService.login(loginDto);
 
         return ResponseEntity.ok(new AuthResponse(accessToken));
@@ -38,8 +38,7 @@ public class AuthController {
     @Operation(summary = "Register", description = "Sign-up user.")
     @ApiResponse(responseCode = "201", description = "HTTP Status CREATED")
     @PostMapping(value = {"/register", "/sign-up"}) // multiple URIs accepted
-    public ResponseEntity<BackResponse> login(@RequestBody RegisterDTO registerDto) {
-        // TODO: validate fields
+    public ResponseEntity<BackResponse> login(@Valid @RequestBody RegisterDTO registerDto) {
         String response = authService.register(registerDto);
 
         return new ResponseEntity<>(new BackResponse(true, response), HttpStatus.CREATED);

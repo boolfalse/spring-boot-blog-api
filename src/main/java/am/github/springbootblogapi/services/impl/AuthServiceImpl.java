@@ -65,14 +65,16 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Email is already exists!");
         }
 
+        Role role = roleRepository.findByAlias("ROLE_CLIENT")
+                .orElseThrow(() -> new RuntimeException("Client Role not found!"));
+
         User user = new User();
+
         user.setEmail(registerDto.getEmail());
         user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setName(registerDto.getName());
 
-        Role role = roleRepository.findByAlias("ROLE_CLIENT").get();
-        // TODO: check if role exists
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
