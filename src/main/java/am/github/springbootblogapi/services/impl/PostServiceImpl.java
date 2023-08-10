@@ -33,14 +33,6 @@ public class PostServiceImpl implements PostService {
         this.categoryRepository = categoryRepository;
     }
 
-    // .map(source, destination) // TODO: optimize
-    private Post DTOToEntity(PostDTO postDto) {
-        return modelMapper.map(postDto, Post.class);
-    }
-    private PostDTO entityToDTO(Post postEntity) {
-        return modelMapper.map(postEntity, PostDTO.class);
-    }
-
     @Override
     public PostResponse getAll(int page, int per_page, String sort_by, String order_by) {
         Sort sortOrder = Objects.equals(order_by, "asc")
@@ -55,7 +47,7 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = pageablePosts.getContent();
 
         List<PostDTO> content = posts.stream()
-                .map(this::entityToDTO) // .map(post -> entityToDTO(post))
+                .map(post -> modelMapper.map(post, PostDTO.class))
                 .collect(Collectors.toList());
 
         PostResponse postResponse = new PostResponse();
@@ -74,11 +66,11 @@ public class PostServiceImpl implements PostService {
         Category category = categoryRepository.findById(postDto.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", Long.toString(postDto.getCategoryId())));
 
-        Post post = DTOToEntity(postDto);
+        Post post = modelMapper.map(postDto, Post.class);
         post.setCategory(category);
         Post postCreated = postRepository.save(post);
 
-        return entityToDTO(postCreated);
+        return modelMapper.map(postCreated, PostDTO.class);
     }
 
     @Override
@@ -86,7 +78,7 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(id)));
 
-        return entityToDTO(post);
+        return modelMapper.map(post, PostDTO.class);
     }
 
     @Override
@@ -103,7 +95,7 @@ public class PostServiceImpl implements PostService {
         post.setCategory(category);
         Post postUpdated = postRepository.save(post);
 
-        return entityToDTO(postUpdated);
+        return modelMapper.map(postUpdated, PostDTO.class);
     }
 
     @Override
@@ -122,7 +114,7 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postRepository.findPostsByCategoryId(categoryId);
 
         return posts.stream()
-                .map(post -> entityToDTO(post))
+                .map(post -> modelMapper.map(post, PostDTO.class))
                 .collect(Collectors.toList());
     }
 }

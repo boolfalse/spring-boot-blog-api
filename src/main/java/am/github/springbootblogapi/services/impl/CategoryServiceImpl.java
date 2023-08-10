@@ -22,29 +22,21 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    // .map(source, destination) // TODO: optimize
-    private Category DTOToEntity(CategoryDTO categoryDto) {
-        return modelMapper.map(categoryDto, Category.class);
-    }
-    private CategoryDTO entityToDTO(Category categoryEntity) {
-        return modelMapper.map(categoryEntity, CategoryDTO.class);
-    }
-
     @Override
     public List<CategoryDTO> getAll() {
         List<Category> categories = categoryRepository.findAll();
 
         return categories.stream()
-                .map(this::entityToDTO) // .map(category -> entityToDTO(category))
+                .map(category -> modelMapper.map(category, CategoryDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CategoryDTO create(CategoryDTO categoryDto) {
-        Category category = DTOToEntity(categoryDto);
+        Category category = modelMapper.map(categoryDto, Category.class);
         Category categoryCreated = categoryRepository.save(category);
 
-        return entityToDTO(categoryCreated);
+        return modelMapper.map(categoryCreated, CategoryDTO.class);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", Integer.toString(id)));
 
-        return entityToDTO(category);
+        return modelMapper.map(category, CategoryDTO.class);
     }
 
     @Override
@@ -66,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category categoryUpdated = categoryRepository.save(category);
 
-        return entityToDTO(categoryUpdated);
+        return modelMapper.map(categoryUpdated, CategoryDTO.class);
     }
 
     @Override

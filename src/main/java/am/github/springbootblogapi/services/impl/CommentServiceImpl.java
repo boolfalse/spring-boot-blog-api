@@ -27,14 +27,6 @@ public class CommentServiceImpl implements CommentService {
         this.postRepository = postRepository;
     }
 
-    // .map(source, destination) // TODO: optimize
-    private Comment DTOToEntity(CommentDTO commentDto) {
-        return modelMapper.map(commentDto, Comment.class);
-    }
-    private CommentDTO entityToDTO(Comment commentEntity) {
-        return modelMapper.map(commentEntity, CommentDTO.class);
-    }
-
     @Override
     public List<CommentDTO> getAll(Long postId) {
         Post post = postRepository.findById(postId)
@@ -42,19 +34,19 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentRepository.findCommentsByPostId(postId);
 
         return comments.stream()
-                .map(this::entityToDTO) // .map(comment -> entityToDTO(comment))
+                .map(comment -> modelMapper.map(comment, CommentDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CommentDTO create(Long postId, CommentDTO commentDto) {
-        Comment comment = DTOToEntity(commentDto);
+        Comment comment = modelMapper.map(commentDto, Comment.class);
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(postId)));
         comment.setPost(post);
         Comment commentCreated = commentRepository.save(comment);
 
-        return entityToDTO(commentCreated);
+        return modelMapper.map(commentCreated, CommentDTO.class);
     }
 
     @Override
@@ -62,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment", "id", Long.toString(id)));
 
-        return entityToDTO(comment);
+        return modelMapper.map(comment, CommentDTO.class);
     }
 
     @Override
@@ -76,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
 
         Comment commentUpdated = commentRepository.save(comment);
 
-        return entityToDTO(commentUpdated);
+        return modelMapper.map(commentUpdated, CommentDTO.class);
     }
 
     @Override
