@@ -11,7 +11,7 @@
 
 
 
-#### Installation:
+#### Local Install:
 
 - Make sure to have [`Maven`](https://maven.apache.org/download.cgi) set up.
 ```shell
@@ -31,20 +31,33 @@ PATH="$PATH:/opt/apache-maven-3.9.3/bin"
 source ~/.bashrc
 ```
 
-- Setup _.env_ credentials as described in _.env.example_ in _src/main/resources/_ folder.
-
-- As the JWT_SECRET it's recommended to use SHA256 hashed string.
+- Setup _src/main/resources/.env_ credentials as described in _src/main/resources/.env.example_.
 
 - Run the app via CLI:
 ```shell
 mvn spring-boot:run
 ```
 
-- Use "ADMIN_***" credentials from .env to act as an admin.
+#### Docker Install:
+
+- Setup _.env_ credentials as described in _.env.example_.
+
+- Run Docker Compose:
+```shell
+docker-compose up -d
+```
+
+
+
+#### Guide:
+
+- As the JWT_SECRET it's recommended to use SHA256 hashed string.
+
+- Use "ADMIN_***" credentials from _src/main/resources/.env.example_ to act as an admin.
 
 - Try the Postman Collection using http://localhost:8080 as a dev host URI.
 
-- Or Check the API docs with SwaggerUI on "[/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)"
+- Or check the API docs with SwaggerUI on [/swagger-ui/index.html]()
 
 
 
